@@ -1,0 +1,1 @@
+# switch_type_kiosk_to_work_with_modem
