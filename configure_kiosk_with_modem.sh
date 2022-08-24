@@ -1,6 +1,6 @@
 #!/bin/bash
-dir_of_script=/home/vlad/git_projects/ansible/modem_kiosk/ # Дирректория де лежит ансибл проект
-ANSIBLE_CONFIG=/home/vlad/git_projects/ansible/modem_kiosk/ansible.cfg #Указываем ansible config file
+dir_of_script=/home/vlad/git/switch_type_kiosk_to_work_with_modem/ # Дирректория где лежит ансибл проект
+ANSIBLE_CONFIG=/home/vlad/git/switch_type_kiosk_to_work_with_modem/ansible.cfg #Указываем ansible config file
 export ANSIBLE_CONFIG                                      # Экспортируем переменную в окружение
 read -a ip -p 'Введите IP киоска > '
 read -a town -p 'Введите название города > '
