@@ -1,0 +1,4 @@
+---
+ ansible_become_password            : GANDRAmora
+ ansible_user                       : denis
+ ansible_password                   : GANDRAmora

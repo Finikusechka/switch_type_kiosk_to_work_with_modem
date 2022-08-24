@@ -1,0 +1,4 @@
+---
+  ansible_become_password: ADD0D407-5923-4E9C-9976-5F96E4D2D5CD
+  ansible_user: remoteadmin
+  ansible_password: ADD0D407-5923-4E9C-9976-5F96E4D2D5CD

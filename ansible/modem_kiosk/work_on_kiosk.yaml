@@ -1,0 +1,47 @@
+---
+- name: Upload conf for ovpn to kiosk, update ovpn client on kiosk and restart service
+  hosts: "{{ serial_kiosk }}"
+  become: yes
+
+  tasks:
+    - name: Upload conf ovpn file
+      copy:
+        src: /home/vlad/vpn_file_for_kiosk/{{ fullnamekiosk }}.conf
+        dest: /etc/openvpn/
+
+    - name: Upload resolv.conf
+      copy:
+        src: /home/vlad/vpn_file_for_kiosk/resolv.conf
+        dest: /etc/
+
+    - name: Upload iptables
+      copy:
+        src: /home/vlad/vpn_file_for_kiosk/rules.v4
+        dest: /etc/iptables/
+
+    - name: Add key repo with new openvpn
+      shell:
+        cmd: wget -O - https://swupdate.openvpn.net/repos/repo-public.gpg|apt-key add -
+
+    - name: Add repo with new openvpn
+      shell:
+        cmd: echo "deb http://build.openvpn.net/debian/openvpn/release/2.4 precise main" > /etc/apt/sources.list.d/openvpn-aptrepo.list
+
+    - name: Udpate openvpn
+      apt:
+        name: openvpn
+        state: latest
+        update_cache: yes
+      notify:
+        - kill_java
+        - restart_kiosk
+
+
+
+  handlers:
+    - name: kill_java
+      shell:
+        cmd: sudo kill -9 "$(ps -axwwo pid,command|grep -P '^\s*\d+\s+/bin/bash\s+/opt/client_app/launcher\.sh'|awk '{print $1}')"
+
+    - name: restart_kiosk
+      reboot:
