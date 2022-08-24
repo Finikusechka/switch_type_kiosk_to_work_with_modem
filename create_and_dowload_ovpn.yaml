@@ -1,0 +1,28 @@
+---
+ - name: create ovpn .conf file, download to administrator pc and upload to target modem kiosk
+   hosts: seed240
+   become: yes
+
+
+
+   tasks:
+      - name: Apply Changes
+        expect:
+           command: pivpn -a nopass
+           responses:
+              (.*)Name for the (.*): "{{ fullnamekiosk }}"
+              (.*)days should the(.*): ''
+           timeout: 600
+           echo: yes
+
+      - name: Download config file
+        fetch:
+           src: /home/denis/ovpns/{{ fullnamekiosk }}.ovpn
+           dest: /home/vlad
+           remote_src: yes
+
+
+      - name: Delete bad files
+        file:
+           path: /etc/openvpn/ccd/
+           state: absent
