@@ -1,0 +1,3 @@
+notify:
+        - kill_java
+        - restart_kiosk

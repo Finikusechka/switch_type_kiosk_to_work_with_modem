@@ -1,6 +1,6 @@
 ---
  - name: create ovpn .conf file, download to administrator pc and upload to target modem kiosk
-   hosts: seed240
+   hosts: seed244
    become: yes
 
 
